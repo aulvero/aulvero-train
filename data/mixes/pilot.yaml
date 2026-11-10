@@ -1,0 +1,38 @@
+# Pilot mix (from the former Elan family). Small and cheap: use it to test data,
+# tokenizer, checkpointing and resume before spending real compute.
+# Review every dataset card, license, and terms before commercial use.
+sources:
+  - name: HuggingFaceFW/fineweb-2
+    config: fra_Latn
+    split: train
+    kind: text
+    text_field: text
+    max_documents: 75000
+    min_chars: 200
+    max_chars: 200000
+    shuffle_buffer: 10000
+    metadata_fields: [language, language_script, language_score, url]
+
+  - name: HuggingFaceFW/fineweb-edu
+    config: sample-10BT
+    split: train
+    kind: text
+    text_field: text
+    max_documents: 75000
+    min_chars: 200
+    max_chars: 200000
+    shuffle_buffer: 10000
+    metadata_fields: [id, url, score]
+
+  - name: codeparrot/github-code
+    split: train
+    kind: code
+    text_field: code
+    max_documents: 75000
+    min_chars: 80
+    max_chars: 300000
+    shuffle_buffer: 10000
+    dataset_kwargs:
+      languages: [Python, JavaScript, TypeScript, Java, C, C++, C#, GO, Rust, Shell, SQL, HTML, CSS, Markdown, Dockerfile, Makefile]
+      licenses: [mit, apache-2.0, bsd-3-clause, bsd-2-clause, isc, unlicense, cc0-1.0]
+    metadata_fields: [repo_name, path, language, license, size]

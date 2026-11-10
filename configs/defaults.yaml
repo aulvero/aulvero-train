@@ -1,0 +1,60 @@
+# Shared settings, merged underneath every model file in this folder.
+# A model file (e.g. kestrel-250m.yaml) only lists what is specific to it.
+# "{name}" is replaced with the model name.
+
+model:
+  vocab_size: 49152        # matches artifacts/tokenizer (scripts/train_tokenizer.py)
+  rope_theta: 50000.0
+  qk_norm: true            # per-head RMSNorm on queries/keys (Qwen 3, OLMo 2, Gemma 3)
+  tie_embeddings: true     # standard below ~1B parameters
+  dropout: 0.0
+  norm_eps: 0.000001
+  init_std: 0.02
+
+pretrain:
+  train_bin: data/packed/pretrain/train.bin
+  val_bin: data/packed/pretrain/val.bin
+  out_dir: checkpoints/{name}/pretrain
+  seed: 1337
+  # Warmup - stable - decay. The LR is flat for most of training and decays
+  # linearly to min_learning_rate over the final decay_fraction of steps.
+  lr_schedule: wsd
+  decay_fraction: 0.2
+  warmup_steps: 1000
+  min_learning_rate: 0.0
+  weight_decay: 0.1
+  beta1: 0.9
+  beta2: 0.95
+  grad_clip: 1.0
+  log_interval: 10
+  eval_interval: 500
+  eval_batches: 50
+  save_interval: 1000
+  keep_last: 3             # older step-*.pt checkpoints are deleted
+  precision: bf16
+  compile: true
+
+finetune:
+  init_checkpoint: checkpoints/{name}/pretrain/final.pt
+  tokenizer: artifacts/tokenizer/tokenizer.json
+  dataset: HuggingFaceTB/smol-smoltalk   # or a local .jsonl with a "messages" field
+  split: train
+  out_dir: checkpoints/{name}/sft
+  seed: 1337
+  seq_len: 2048
+  micro_batch_size: 8
+  grad_accum_steps: 8
+  epochs: 2
+  lr_schedule: cosine
+  learning_rate: 0.0001
+  min_learning_rate: 0.0
+  warmup_fraction: 0.03
+  weight_decay: 0.01
+  beta1: 0.9
+  beta2: 0.95
+  grad_clip: 1.0
+  val_fraction: 0.01
+  log_interval: 10
+  eval_interval: 200
+  eval_batches: 20
+  precision: bf16

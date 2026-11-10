@@ -1,0 +1,20 @@
+# Crane 700M · Medium tier
+# Planned budget: 67,000 steps x 1,048,576 tokens = 70.3B tokens.
+# With the WSD schedule you can extend a run later by raising max_steps and resuming
+# from a checkpoint taken before the decay phase.
+
+model:
+  name: crane-700m
+  max_seq_len: 4096
+  n_layers: 33
+  d_model: 1344
+  n_heads: 21
+  n_kv_heads: 7
+  d_ff: 3584
+
+pretrain:
+  seq_len: 4096
+  micro_batch_size: 4         # per GPU; lower it if you run out of memory
+  global_batch_tokens: 1048576  # gradient accumulation is derived from this
+  max_steps: 67000
+  learning_rate: 0.00035

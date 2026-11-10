@@ -1,0 +1,3 @@
+{"messages": [{"role": "system", "content": "Tu es un assistant utile et concis."}, {"role": "user", "content": "Quelle est la capitale de la France ?"}, {"role": "assistant", "content": "La capitale de la France est Paris."}]}
+{"messages": [{"role": "user", "content": "Explain what a tokenizer does in one sentence."}, {"role": "assistant", "content": "A tokenizer splits text into small pieces, called tokens, and maps each one to a number the model can read."}]}
+{"messages": [{"role": "user", "content": "Écris une fonction Python qui inverse une chaîne."}, {"role": "assistant", "content": "```python\ndef inverser(texte: str) -> str:\n    return texte[::-1]\n```"}]}

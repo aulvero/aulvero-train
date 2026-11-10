@@ -1,0 +1,20 @@
+# Condor 900M · Medium tier
+# Planned budget: 86,000 steps x 1,048,576 tokens = 90.2B tokens.
+# With the WSD schedule you can extend a run later by raising max_steps and resuming
+# from a checkpoint taken before the decay phase.
+
+model:
+  name: condor-900m
+  max_seq_len: 4096
+  n_layers: 33
+  d_model: 1536
+  n_heads: 24
+  n_kv_heads: 8
+  d_ff: 4096
+
+pretrain:
+  seq_len: 4096
+  micro_batch_size: 4         # per GPU; lower it if you run out of memory
+  global_batch_tokens: 1048576  # gradient accumulation is derived from this
+  max_steps: 86000
+  learning_rate: 0.0003

@@ -1,0 +1,20 @@
+# Osprey 350M · Small tier
+# Planned budget: 67,000 steps x 524,288 tokens = 35.1B tokens.
+# With the WSD schedule you can extend a run later by raising max_steps and resuming
+# from a checkpoint taken before the decay phase.
+
+model:
+  name: osprey-350m
+  max_seq_len: 4096
+  n_layers: 31
+  d_model: 960
+  n_heads: 15
+  n_kv_heads: 5
+  d_ff: 2560
+
+pretrain:
+  seq_len: 4096
+  micro_batch_size: 8         # per GPU; lower it if you run out of memory
+  global_batch_tokens: 524288  # gradient accumulation is derived from this
+  max_steps: 67000
+  learning_rate: 0.0005

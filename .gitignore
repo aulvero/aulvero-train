@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.python-version
+
+# Tooling
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+.coverage
+htmlcov/
+
+# Training outputs (large; publish models to Hugging Face, not git)
+data/raw/
+data/packed/
+artifacts/
+checkpoints/
+exports/
+wandb/
+runs/
+*.pt
+*.bin
+*.safetensors
+
+# Local SFT data (keep only the example)
+data/sft/*
+!data/sft/example.jsonl
+
+# Secrets and OS files
+.env
+.env.*
+.DS_Store

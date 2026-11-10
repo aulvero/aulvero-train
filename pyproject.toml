@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aulvero"
+version = "0.1.0"
+description = "Pre-training and fine-tuning code for the Aulvero compact language models"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+dependencies = [
+  "torch>=2.5",
+  "datasets>=3.2",
+  "huggingface-hub>=0.27",
+  "tokenizers>=0.21",
+  "transformers>=4.51",
+  "pyyaml>=6.0",
+  "tqdm>=4.67",
+  "numpy>=1.26",
+  "safetensors>=0.5",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.3", "ruff>=0.9"]
+
+[tool.setuptools.packages.find]
+include = ["aulvero*"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["E731"]

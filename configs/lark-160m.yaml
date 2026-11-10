@@ -1,0 +1,20 @@
+# Lark 160M · Small tier
+# Planned budget: 30,500 steps x 524,288 tokens = 16.0B tokens.
+# With the WSD schedule you can extend a run later by raising max_steps and resuming
+# from a checkpoint taken before the decay phase.
+
+model:
+  name: lark-160m
+  max_seq_len: 4096
+  n_layers: 29
+  d_model: 640
+  n_heads: 10
+  n_kv_heads: 2
+  d_ff: 1792
+
+pretrain:
+  seq_len: 4096
+  micro_batch_size: 8         # per GPU; lower it if you run out of memory
+  global_batch_tokens: 524288  # gradient accumulation is derived from this
+  max_steps: 30500
+  learning_rate: 0.0008
